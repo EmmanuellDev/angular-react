@@ -1,40 +1,18 @@
-<h1 align="center" style="font-weight: bold;">ToDo ✔️</h1>
+# Migration: Angular → React
 
-<p align="center">
-<b>A simple ToDo App, where users can create their activities separating them
-by priority (light, normal, medium, important), and then delete or complete
-the activities.</b>
-</p>
-
-<p align="center">
-This repository contains two implementations of the same app, kept side by side.
-</p>
-
-## Projects
-
-| Folder | Stack | Description |
-|---|---|---|
-| [`angular-js/`](./angular-js) | Angular 14 | The original implementation |
-| [`react-js/`](./react-js) | React 19 + Vite + TypeScript | A functionally equivalent React rewrite of the Angular app |
-
-Each folder is a standalone project with its own `package.json`, README, and tests.
-See the README inside each folder for setup and run instructions.
-
-## Migration: Angular → React
-
-The `react-js/` app is a complete rewrite of `angular-js/`, built to be
+The [`react-js/`](./react-js) app is a complete rewrite of [`angular-js/`](./angular-js), built to be
 functionally and visually identical to the original — same features, same
-styling, same behaviour, same test coverage. This section documents how that
-migration was approached.
+styling, same behaviour, same test coverage. This document describes how
+that migration was approached.
 
-### Strategy
+## Strategy
 
 Given the app's small size and low risk (no production users depending on
 it), a **full rewrite** was chosen over an incremental migration. The
 existing app was read and understood completely — every component, service,
 and style file — before any React code was written.
 
-### Architectural mapping
+## Architectural mapping
 
 | Angular concept | React equivalent | Notes |
 |---|---|---|
@@ -47,7 +25,7 @@ and style file — before any React code was written.
 | Angular Router | Not used | Not needed — this app has no routes |
 | Angular DI-based state sharing | `useState` only | No Context or external state library — the app is too small to need one |
 
-### Process followed
+## Process followed
 
 1. **Read the whole Angular codebase first** — every file, before writing anything new.
 2. **Scaffolded the React project** (Vite + React + TypeScript) and got build/dev/test tooling working before writing any feature code.
@@ -55,7 +33,7 @@ and style file — before any React code was written.
 4. **Ported every existing test** (Jasmine/Karma → Vitest + React Testing Library), scenario for scenario, so behavioural coverage was never reduced.
 5. **Verified visually** — ran both apps side by side in a real browser (add, prioritize, complete, delete-with-confirm) and compared screenshots, in addition to the automated test suite passing and the production build succeeding.
 
-### Result
+## Result
 
 - Same `localStorage` keys (`todoList`, `completeList`) and JSON shape, so data format is compatible between both versions
 - Same CSS custom properties, layout, and priority colors — no visual regression
@@ -66,7 +44,11 @@ A longer, first-person write-up of this migration (and general notes on
 Angular-to-React modernization strategy for larger apps) exists separately
 as a blog post.
 
-## License
+## Projects
 
-Each project carries its own MIT license file (`angular-js/.github/LICENSE`,
-`react-js/LICENSE`).
+| Folder | Stack |
+|---|---|
+| [`angular-js/`](./angular-js) | Angular 14 |
+| [`react-js/`](./react-js) | React 19 + Vite + TypeScript |
+
+Each folder is a standalone project with its own `package.json`, README, tests, and MIT license file.
