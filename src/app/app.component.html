@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>Todo App</h1>
+  <div class="lists">
+    <ul>
+      <todo-item *ngFor="let item of todoList; trackBy: trackById"
+        class="todo"
+        [title]="item.title"
+        [isDone]="item.isDone"
+        [id]="item.id"
+        [type]="item.type"
+        (onComplete)="handleItemComplete($event)"
+        (onDelete)="handleItemDelete($event)"
+        (onIncomplete)="handleItemIncomplete($event)"
+      >
+      </todo-item>
+    </ul>
+    <div *ngIf="completeList.length" class="todo">
+      <span>Concluídas</span>
+      <ul class="todo">
+          <todo-item *ngFor="let item of completeList; trackBy: trackById"
+          [title]="item.title"
+          class="todo"
+          [isDone]="item.isDone"
+          [id]="item.id"
+          [type]="item.type"
+          (onComplete)="handleItemComplete($event)"
+          (onDelete)="handleItemDelete($event)"
+          (onIncomplete)="handleItemIncomplete($event)"
+        >
+        </todo-item>
+      </ul>
+    </div>
+  </div>
+  <form (submit)="handleSubmit($event)" class="forms">
+    <input
+      name="title"
+      class="{{ type }}"
+      type="text"
+      placeholder="Adicionar uma tarefa"
+      [(ngModel)]="title"
+    />
+    <select name="type" [(ngModel)]="type" class="{{ type }}">
+      <option value="light" default selected>Baixa</option>
+      <option value="normal">Normal</option>
+      <option value="medium">Médio</option>
+      <option value="important">Importante</option>
+    </select>
+    <button>+</button>
+  </form>
+</div>
+
